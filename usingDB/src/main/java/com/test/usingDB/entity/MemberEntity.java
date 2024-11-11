@@ -2,19 +2,20 @@ package com.test.usingDB.entity;
 
 import com.test.usingDB.dto.MemberDTO;
 import jakarta.persistence.*;
+import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
-import lombok.Setter;
-import org.springframework.data.annotation.Id;
+import lombok.NoArgsConstructor;
 
 @Entity
-@Setter
 @Getter
+@Data
+@NoArgsConstructor
 @Table(name = "member_table") //database에 해당 이름의 테이블 생성
 public class MemberEntity { //table 역할
     //jpa ==> database를 객체처럼 사용 가능
 
     @jakarta.persistence.Id
-    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) // auto_increment
     private Long id;
 
@@ -30,14 +31,23 @@ public class MemberEntity { //table 역할
     @Column
     private String memberName;
 
-    public static MemberEntity toMemberEntity(MemberDTO memberDTO){
-        MemberEntity memberEntity = new MemberEntity();
-        memberEntity.setId(memberDTO.getId());
-        memberEntity.setMemberEmail(memberDTO.getMemberEmail());
-        memberEntity.setMemberName(memberDTO.getMemberName());
-        memberEntity.setMemberID(memberDTO.getMemberID());
-        memberEntity.setMemberPassword(memberDTO.getMemberPassword());
-        return memberEntity;
+    @Builder
+    public MemberEntity(String memberEmail, String memberID, String memberPassword, String memberName) {
+        this.memberEmail = memberEmail;
+        this.memberID = memberID;
+        this.memberPassword = memberPassword;
+        this.memberName = memberName;
+    }
+
+
+    public static MemberEntity toMemberEntity(MemberDTO memberDTO) {
+        return MemberEntity.builder()
+                .memberEmail(memberDTO.getMemberEmail())
+                .memberID(memberDTO.getMemberID())
+                .memberPassword(memberDTO.getMemberPassword())
+                .memberName(memberDTO.getMemberName())
+                .build();
     }
 
 }
+
