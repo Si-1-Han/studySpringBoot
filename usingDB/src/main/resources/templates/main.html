@@ -2,9 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="refresh" content="1; url=http://localhost:8080/">
   <title>main</title>
 </head>
 <body>
-session 값 확인 : <p th:text="${session.loginEmail}"></p>
+session 값 확인 : <p th:text="${session.loginID}"></p>
+<br/>
+로그인 완료
 </body>
 </html>

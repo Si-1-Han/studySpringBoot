@@ -42,11 +42,13 @@ public class MemberController {
         MemberDTO loginResult = memberService.login(memberDTO);
         if (loginResult != null) {
             // login 성공
-            session.setAttribute("loginEmail", loginResult.getMemberEmail());
+            session.setAttribute("loginID", loginResult.getMemberID());
             return "main";
         } else {
-            // login 실패
+            session.setAttribute("loginFailed", true);
             return "login";
         }
+                // login 실패
+                
     }
 }
