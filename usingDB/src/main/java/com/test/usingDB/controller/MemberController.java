@@ -43,6 +43,7 @@ public class MemberController {
         if (loginResult != null) {
             // login 성공
             session.setAttribute("loginID", loginResult.getMemberID());
+            session.removeAttribute("loginFailed");
             return "main";
         } else {
             session.setAttribute("loginFailed", true);
